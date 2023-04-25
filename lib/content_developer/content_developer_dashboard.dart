@@ -14,29 +14,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 
-class MyDemo extends StatelessWidget {
-  const MyDemo({super.key});
+class Content_Developer_Dashboard extends StatelessWidget {
+  const Content_Developer_Dashboard({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme)
+          textTheme: GoogleFonts.asapTextTheme(
+            Theme.of(context).textTheme,
+          )
       ),
       debugShowCheckedModeBanner: false,
-      home:MyDemoPage(),
+      home:Content_Developer_Dashboard(),
     );
   }
 }
 
-class MyDemoPage extends StatefulWidget {
+class Content_Developer_Dashboard_page extends StatefulWidget {
 
   @override
-  State<MyDemoPage> createState() => _MyDemoPageState();
+  State<Content_Developer_Dashboard_page> createState() => _Content_Developer_Dashboard_PageState();
 }
 
-class _MyDemoPageState extends State<MyDemoPage> {
+class _Content_Developer_Dashboard_PageState extends State<Content_Developer_Dashboard_page> {
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _MyDemoPageState extends State<MyDemoPage> {
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: Center(child: Text("Welcome to Demo Page",style: TextStyle(fontSize: 20),)),
+        child: Center(child: Text("Welcome to Content Developer Dashboard Page",style: TextStyle(fontSize: 20),)),
       ),
     );
   }

@@ -14,29 +14,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 
-class MyDemo extends StatelessWidget {
-  const MyDemo({super.key});
+class Admin_Dashboard extends StatelessWidget {
+  const Admin_Dashboard({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme)
+          textTheme: GoogleFonts.asapTextTheme(
+            Theme.of(context).textTheme,
+          )
       ),
       debugShowCheckedModeBanner: false,
-      home:MyDemoPage(),
+      home:Admin_Dashboard(),
     );
   }
 }
 
-class MyDemoPage extends StatefulWidget {
+class Admin_Dashboard_page extends StatefulWidget {
 
   @override
-  State<MyDemoPage> createState() => _MyDemoPageState();
+  State<Admin_Dashboard_page> createState() => _Admin_Dashboard_PageState();
 }
 
-class _MyDemoPageState extends State<MyDemoPage> {
+class _Admin_Dashboard_PageState extends State<Admin_Dashboard_page> {
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _MyDemoPageState extends State<MyDemoPage> {
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: Center(child: Text("Welcome to Demo Page",style: TextStyle(fontSize: 20),)),
+        child: Center(child: Text("Welcome to Admin Dashboard Page",style: TextStyle(fontSize: 20),)),
       ),
     );
   }

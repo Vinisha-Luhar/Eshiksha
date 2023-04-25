@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:eshiksha_temp/EmailVerify.dart';
 import 'package:eshiksha_temp/phoneverify.dart';
 import 'package:eshiksha_temp/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,34 +11,35 @@ import 'package:flutter_animator/flutter_animator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:eshiksha_temp/signup.dart';
+import 'package:email_otp/email_otp.dart';
 import 'package:ndialog/ndialog.dart';
 
-class MyOtpVerify extends StatelessWidget {
+class MyEmailOtpVerify extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.beVietnamProTextTheme()
+          textTheme: GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme)
       ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyOtpVerifyPage extends StatefulWidget {
+class MyEmailOtpVerifyPage extends StatefulWidget {
 
-  var number;
-  MyOtpVerifyPage(this.number);
+  var email;
+  String otp="";
+  MyEmailOtpVerifyPage(this.email,this.otp);
 
   @override
-  State<MyOtpVerifyPage> createState() => _MySignupPageState();
+  State<MyEmailOtpVerifyPage> createState() => _MyEmailOtpVerifyPageState();
 }
 
-class _MySignupPageState extends State<MyOtpVerifyPage>{
+class _MyEmailOtpVerifyPageState extends State<MyEmailOtpVerifyPage>{
 
   final FirebaseAuth auth=FirebaseAuth.instance;
-  String code="";
   final defaultPinTheme = PinTheme(
     width: 45,
     height: 56,
@@ -68,7 +70,7 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
     width: 45,
     height: 56,
     textStyle: GoogleFonts.poppins(fontSize: 20,
-        color: Colors.black,//Color.fromRGBO(30, 60, 87, 1),
+        color: Color(0xff152942),//Color.fromRGBO(30, 60, 87, 1),
         fontWeight: FontWeight.w600),
     decoration: BoxDecoration(
       color: Color(0xfff1f4f9),
@@ -76,6 +78,17 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
       borderRadius: BorderRadius.circular(10),
     ),
   );
+
+  // void verifyOTP() async {
+  //   var res=MyEmailVerifyPage.emailauth.validateOtp(recipientMail: '${widget.email}', userOtp: widget.code);
+  //   if (res==true){
+  //     print("OTP verified");
+  //   }
+  //   else
+  //     {
+  //       print("Invalid OTP");
+  //     }
+  // }
 
   Widget ShowSnackbar(String msg) {
     final snackbar = SnackBar(
@@ -95,6 +108,8 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
     return snackbar;
   }
 
+  String code="";
+
   @override
   Widget build(BuildContext context) {
 
@@ -106,11 +121,6 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
         height: double.infinity,
         decoration: BoxDecoration(
             color: Color(0xff152942)
-          // gradient: LinearGradient(
-          //     begin: Alignment.bottomRight,
-          //     end: Alignment.topLeft,
-          //     colors: [Color(0xff9DBFFD),Color(0xffC4ECFB)]
-          // )
         ),
         child: Stack(
           children: [
@@ -123,7 +133,7 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                  child: Text("Please enter the verification code sent to +91"+widget.number,textAlign: TextAlign.center,style: GoogleFonts.poppins(color: Colors.grey.shade400,fontSize: 17,fontWeight: FontWeight.w500)),
+                  child: Text("Please enter the verification code sent to "+widget.email,textAlign: TextAlign.center,style: GoogleFonts.poppins(color: Colors.grey.shade400,fontSize: 17,fontWeight: FontWeight.w500)),
                 ),
                 SizedBox(height: 50,),
                 Padding(
@@ -149,6 +159,8 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
                   MediaQuery.of(context).size.width * 0.4,
                   child: TextButton(
                       onPressed: () async {
+                        print(widget.otp);
+                        print(code);
                         ProgressDialog progressdialog=ProgressDialog(
                             context,
                             blur: 10,
@@ -157,43 +169,40 @@ class _MySignupPageState extends State<MyOtpVerifyPage>{
                             message: Text("We are verifying your OTP")
                         );
                         progressdialog.show();
-                        try
-                        {
-                          print("_0_0_0" + code);
-                          print("_0_0_0" +MyPhoneVerifyPage.verify);
-                          PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhoneVerifyPage.verify, smsCode: code);
-
-                          // Sign the user in (or link) with the credential
-                          await auth.signInWithCredential(credential);
-                          // isMobileValidate = true
-                          setState(() {
-                            MySignupPage.isMobileValidate=true;
-                          });
-                          AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.success,
-                              animType: AnimType.rightSlide,
-                              headerAnimationLoop: false,
-                              title: 'OTP Verified',
-                              btnOkOnPress: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MySignupPage()));
-                              },
-                              btnOkColor: Colors.green
-                          ).show();
-                          await Future.delayed(Duration(seconds: 3));
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MySignupPage()));
-                        }
-                        catch(e){
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Invalid OTP',
-                            btnOkOnPress: () {},
-                            btnOkColor: Color(0xffd33d46)
-                          ).show();
-                        }
+                        await Future.delayed(Duration(seconds: 3));
+                          if(code==widget.otp)
+                            {
+                              setState(() {
+                                MySignupPage.isEmailValidate=true;
+                              });
+                              AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  animType: AnimType.rightSlide,
+                                  headerAnimationLoop: false,
+                                  dismissOnTouchOutside: false,
+                                  title: 'OTP Verified',
+                                  btnOkOnPress: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>MySignupPage()));
+                                  },
+                                  btnOkColor: Colors.green
+                              ).show();
+                              await Future.delayed(Duration(seconds: 3));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MySignupPage()));
+                            }
+                          else {
+                            AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                headerAnimationLoop: false,
+                                title: 'Invalid OTP',
+                                btnOkOnPress: () {
+                                  progressdialog.dismiss();
+                                },
+                                btnOkColor: Color(0xffd33d46)
+                            ).show();
+                          }
                       },
                       child: Text(
                         "VERIFY",

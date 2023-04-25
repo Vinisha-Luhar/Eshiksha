@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:eshiksha_temp/main.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -56,24 +57,21 @@ class _MySplashPageState extends State<MySplashPage> with SingleTickerProviderSt
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomRight,
-            end: Alignment.topLeft,
-            colors: [Color(0xff9DBFFD),Color(0xffC4ECFB)]
-          )
+          color: Color(0xff152942)
         ),
         width: double.infinity,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FadeInDown(
-              child: Container(
-                width: MediaQuery.of(context).size.width*0.8,
-                height: MediaQuery.of(context).size.height*0.6,
-                child: Image.asset("images/icon1removebg.png"),
-              ),
-            ),
+              child: CircleAvatar(radius: 90,backgroundImage: AssetImage('images/eshikshaiconfinal.png'),),
+              //child: Text("E-Shiksha",style: GoogleFonts.poppins(fontSize: 30,color: Colors.white,fontWeight: FontWeight.w700))),
+              // child: Container(
+              //   width: MediaQuery.of(context).size.width*0.8,
+              //   height: MediaQuery.of(context).size.height*0.6,
+              //   child: Image.asset("images/icon1removebg.png"),
+              // ),
             // SizedBox(height: MediaQuery.of(context).size.height*0.1,),
             // FadeInUp(
             //   child: Container(
@@ -81,7 +79,7 @@ class _MySplashPageState extends State<MySplashPage> with SingleTickerProviderSt
             //     height: MediaQuery.of(context).size.height*0.3,
             //     child: Lottie.asset("animations/loading.json"),
             //   ),
-            // )
+            )
           ],
         ),
       )
