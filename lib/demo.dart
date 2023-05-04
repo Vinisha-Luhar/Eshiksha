@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 import 'package:eshiksha_temp/forgotpass.dart';
 import 'package:eshiksha_temp/signup.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +25,7 @@ class MyDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.beVietnamProTextTheme(Theme.of(context).textTheme)
+          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
       ),
       debugShowCheckedModeBanner: false,
       home:MyDemoPage(),
@@ -38,9 +41,22 @@ class MyDemoPage extends StatefulWidget {
 
 class _MyDemoPageState extends State<MyDemoPage> {
 
+  Future<List<int>> imageToByte(String imagepath) async
+  {
+    final file=File(imagepath);
+    List<int> imagebytes=await file.readAsBytes();
+    return imagebytes;
+  }
+
+  Future<String> getImagePath(String imagename) async
+  {
+    final directory=await getTemporaryDirectory();
+    final imagepath="${directory.path}/bear.png";
+    return imagepath;
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: null,
@@ -51,7 +67,12 @@ class _MyDemoPageState extends State<MyDemoPage> {
         decoration: BoxDecoration(
           color: Colors.white,
         ),
-        child: Center(child: Text("Welcome to Demo Page",style: TextStyle(fontSize: 20),)),
+        child: Center(child: TextButton(onPressed: () async {
+          String imagepath=await getImagePath('bear.png');
+          print(imagepath);
+          List<int> bytes=await imageToByte(imagepath);
+          print(bytes);
+        }, child: Text("Image to bytes"))),
       ),
     );
   }

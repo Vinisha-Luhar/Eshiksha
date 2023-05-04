@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 UserModel usermodeljson(String str) => UserModel.fromJson(json.decode(str));
 
@@ -14,6 +15,7 @@ class UserModel{
   late final String emailid;
   late final String password;
   late final String confirmpassword;
+  late final String gender;
   late final int teaching_ex;
   late final String subofinterest;
   late final int classtaught;
@@ -21,6 +23,7 @@ class UserModel{
   late final String professionalqua;
   late final String technicalqua;
   late final String about;
+  late final String imagefile;
 
   UserModel({required this.id,
   required this.role,
@@ -30,13 +33,15 @@ class UserModel{
   required this.emailid,
     required this.password,
     required this.confirmpassword,
+    required this.gender,
   required this.teaching_ex,
   required this.subofinterest,
   required this.classtaught,
   required this.academicqua,
   required this.professionalqua,
   required this.technicalqua,
-  required this.about});
+  required this.about,
+  required this.imagefile});
 
   factory UserModel.fromJson(Map<String,dynamic> json){
     return UserModel(
@@ -48,13 +53,15 @@ class UserModel{
         emailid: json['emailid'],
         password: json['password'],
         confirmpassword: json['confirm_password'],
+        gender: json['gender'],
         teaching_ex: int.parse(json['teaching_ex']),
         subofinterest: json['subofinterest'],
         classtaught: int.parse(json['classtaught']),
         academicqua: json['academicqua'],
         professionalqua: json['professionalqua'],
         technicalqua: json['technicalqua'],
-        about: json['about']
+        about: json['about'],
+      imagefile: json['imagefile']
     );
   }
 
@@ -67,6 +74,7 @@ class UserModel{
     "emailid":emailid,
     "password":password,
     "confirm_password":confirmpassword,
+    "gender":gender,
     "teaching_ex":teaching_ex,
     "subofinterest":subofinterest,
     "classtaught":classtaught,
@@ -74,6 +82,7 @@ class UserModel{
     "professionalqua":professionalqua,
     "technicalqua":technicalqua,
     "about":about,
+    "imagefile":imagefile
   };
 
   String get getrole => role;
@@ -83,6 +92,7 @@ class UserModel{
   String get getemailid => emailid;
   String get getpassword => password;
   String get getconfirm_password => confirmpassword;
+  String get getgender => gender;
   int get getteaching_ex => teaching_ex;
   String get getsubofinterest => subofinterest;
   int get getclasstaught => classtaught;
@@ -90,6 +100,7 @@ class UserModel{
   String get getprofessionalqua => professionalqua;
   String get gettechnicalqua => technicalqua;
   String get getabout => about;
+  String get getimagefile => imagefile;
 
 }
 

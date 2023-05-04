@@ -67,6 +67,8 @@ dependencies:
   mailer: ^6.0.0
   ndialog: ^4.3.0
   showcaseview: ^2.0.3
+  convert: ^3.1.1
+  base32: ^2.1.3
 
 
 dev_dependencies:
@@ -130,7 +132,11 @@ flutter:
     - images/galleryicon.png
     - images/cameraicon5.png
     - images/eshikshaiconfinal.png
-
+    - images/user.png
+    - images/checkmarklight.png
+    - images/checkmarkdark.png
+    - images/profileformen.png
+    - images/profileforwomen.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
