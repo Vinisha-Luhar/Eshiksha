@@ -7,7 +7,7 @@ String usermodeltojson(UserModel data) => json.encode(data.toJson());
 
 class UserModel{
 
-  late final int id;
+  late final dynamic id;
   late final String role;
   late final String name;
   late final String designation;
@@ -16,9 +16,9 @@ class UserModel{
   late final String password;
   late final String confirmpassword;
   late final String gender;
-  late final int teaching_ex;
+  late final dynamic teaching_ex;
   late final String subofinterest;
-  late final int classtaught;
+  late final dynamic classtaught;
   late final String academicqua;
   late final String professionalqua;
   late final String technicalqua;
@@ -45,7 +45,7 @@ class UserModel{
 
   factory UserModel.fromJson(Map<String,dynamic> json){
     return UserModel(
-        id: int.parse(json['id']),
+        id: json['id'],
         role: json['role'],
         name: json['name'],
         designation: json['designation'],
@@ -54,9 +54,9 @@ class UserModel{
         password: json['password'],
         confirmpassword: json['confirm_password'],
         gender: json['gender'],
-        teaching_ex: int.parse(json['teaching_ex']),
+        teaching_ex: json['teaching_ex'],
         subofinterest: json['subofinterest'],
-        classtaught: int.parse(json['classtaught']),
+        classtaught: json['classtaught'],
         academicqua: json['academicqua'],
         professionalqua: json['professionalqua'],
         technicalqua: json['technicalqua'],
@@ -93,9 +93,9 @@ class UserModel{
   String get getpassword => password;
   String get getconfirm_password => confirmpassword;
   String get getgender => gender;
-  int get getteaching_ex => teaching_ex;
+  dynamic get getteaching_ex => teaching_ex;
   String get getsubofinterest => subofinterest;
-  int get getclasstaught => classtaught;
+  dynamic get getclasstaught => classtaught;
   String get getacademicqua => academicqua;
   String get getprofessionalqua => professionalqua;
   String get gettechnicalqua => technicalqua;
